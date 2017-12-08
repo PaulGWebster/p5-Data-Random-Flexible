@@ -1,0 +1,10 @@
+Revision history for Data-Random-Flexible
+
+0.01    Date/time
+        First version, released on an unsuspecting world.
+
+1.00    First release
+        Attempt to use Math::Random::Secure if its availible
+
+1.01    Second release
+        Fixed a typo in the pod, updated some minor formatting
