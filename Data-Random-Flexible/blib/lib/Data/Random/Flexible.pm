@@ -35,11 +35,11 @@ Data::Random::Flexible - Flexible fast-to-write profilable randoms
 
 =head1 VERSION
 
-Version 1.03
+Version 1.06
 
 =cut
 
-our $VERSION = '1.03';
+our $VERSION = '1.06';
 
 
 =head1 SYNOPSIS
@@ -48,21 +48,21 @@ A more flexible set of randoms for when you want to be random FAST
 
     use Data::Random::Flexible;
 
-    use function "say";
+    use feature "say";
 
     my $random = Data::Random::Flexible->new();
 
-    say "32 Character random of numbers?, sure: ".$random->int(32);
+    say "32 Characters of random numbers?, sure: ".$random->int(32);
 
-    say "16 Character random of letters?, sure: ".$random->char(16);
+    say "16 Characters of random letters?, sure: ".$random->char(16);
 
     say "16 Of a mixture of numbers and letters?, sure: ".$random->mix(16);
 
-    say "Random mixture of 16 your own characters?, sure: ".$random->profile('irc',16, [qw(a b c 1 2 3)]);
+    say "Random mixture of 16 your own characters?, sure: ".$random->profile('irc',16, [qw(I r C 1 2 3)]);
     
     say "Random mixture of 16 your own characters from a saved profile?, sure: ".$random->profile('irc',16);
 
-The module can also use alternative provieders for rand(), for more detail look at the engine() function,
+The module can also use alternative providers for rand(), for more detail look at the engine() function,
 the currently supported providers of random are:
 
         Math::Random::Secure
@@ -192,7 +192,7 @@ sub engine {
         return;
     }
 
-    return $engines;
+    return keys %$engines;
 }
 
 =head1 store()
@@ -232,7 +232,7 @@ if length is ommited return a single alpha-char;
 
 =head2 char()
 
-Though technically wrong, its a shorthand to alpha()
+Though technically wrong, it is a shorthand to alpha()
 
 =cut
 

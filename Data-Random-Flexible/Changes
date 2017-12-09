@@ -25,4 +25,11 @@ Revision history for Data-Random-Flexible
 
         You can select which to use via the ->engine() call
 
-        
+1.04    Fifth release
+        Added the new modules to the make file (minor fix)
+
+1.05    Sixth release
+        More random documentation updates for typos and what not 
+
+1.06    Seventh release
+        Last correction I promise..

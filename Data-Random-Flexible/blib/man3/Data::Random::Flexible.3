@@ -76,7 +76,7 @@
 Data::Random::Flexible \- Flexible fast\-to\-write profilable randoms
 .SH "VERSION"
 .IX Header "VERSION"
-Version 1.03
+Version 1.06
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 A more flexible set of randoms for when you want to be random \s-1FAST\s0
@@ -84,22 +84,22 @@ A more flexible set of randoms for when you want to be random \s-1FAST\s0
 .Vb 1
 \&    use Data::Random::Flexible;
 \&
-\&    use function "say";
+\&    use feature "say";
 \&
 \&    my $random = Data::Random::Flexible\->new();
 \&
-\&    say "32 Character random of numbers?, sure: ".$random\->int(32);
+\&    say "32 Characters of random numbers?, sure: ".$random\->int(32);
 \&
-\&    say "16 Character random of letters?, sure: ".$random\->char(16);
+\&    say "16 Characters of random letters?, sure: ".$random\->char(16);
 \&
 \&    say "16 Of a mixture of numbers and letters?, sure: ".$random\->mix(16);
 \&
-\&    say "Random mixture of 16 your own characters?, sure: ".$random\->profile(\*(Aqirc\*(Aq,16, [qw(a b c 1 2 3)]);
+\&    say "Random mixture of 16 your own characters?, sure: ".$random\->profile(\*(Aqirc\*(Aq,16, [qw(I r C 1 2 3)]);
 \&    
 \&    say "Random mixture of 16 your own characters from a saved profile?, sure: ".$random\->profile(\*(Aqirc\*(Aq,16);
 .Ve
 .PP
-The module can also use alternative provieders for \fIrand()\fR, for more detail look at the \fIengine()\fR function,
+The module can also use alternative providers for \fIrand()\fR, for more detail look at the \fIengine()\fR function,
 the currently supported providers of random are:
 .PP
 .Vb 8
@@ -148,7 +148,7 @@ Return a random alpha character uppercase or lowercase, accepts 1 argument 'leng
 if length is ommited return a single alpha-char;
 .SS "\fIchar()\fP"
 .IX Subsection "char()"
-Though technically wrong, its a shorthand to \fIalpha()\fR
+Though technically wrong, it is a shorthand to \fIalpha()\fR
 .SH "\fInumeric()\fP"
 .IX Header "numeric()"
 Return a random whole number, accepts 1 argument 'length', if length is ommited 

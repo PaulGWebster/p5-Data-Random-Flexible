@@ -16,10 +16,10 @@
 #     BUILD_REQUIRES => { Test::More=>q[0] }
 #     CONFIGURE_REQUIRES => { ExtUtils::MakeMaker=>q[0] }
 #     LICENSE => q[bsd]
-#     MIN_PERL_VERSION => q[5.020]
+#     MIN_PERL_VERSION => q[5.010]
 #     NAME => q[Data::Random::Flexible]
 #     PL_FILES => {  }
-#     PREREQ_PM => { Test::More=>q[0] }
+#     PREREQ_PM => { Module::Runtime=>q[0], Test::More=>q[0], Try::Tiny=>q[0] }
 #     TEST_REQUIRES => {  }
 #     VERSION_FROM => q[lib/Data/Random/Flexible.pm]
 #     clean => { FILES=>q[Data-Random-Flexible-*] }
@@ -62,11 +62,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Data::Random::Flexible
 NAME_SYM = Data_Random_Flexible
-VERSION = 1.03
+VERSION = 1.06
 VERSION_MACRO = VERSION
-VERSION_SYM = 1_03
+VERSION_SYM = 1_06
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 1.03
+XS_VERSION = 1.06
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -259,7 +259,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Data-Random-Flexible
-DISTVNAME = Data-Random-Flexible-1.03
+DISTVNAME = Data-Random-Flexible-1.06
 
 
 # --- MakeMaker macro section:
@@ -505,8 +505,10 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '    - t' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '  perl: '\''5.020'\''' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: '\''1.03'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Module::Runtime: '\''0'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Try::Tiny: '\''0'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) '  perl: '\''5.010'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: '\''1.06'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'x_serialization_backend: '\''CPAN::Meta::YAML version 0.018'\''' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
@@ -544,12 +546,14 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '      },' >> META_new.json
 	$(NOECHO) $(ECHO) '      "runtime" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
-	$(NOECHO) $(ECHO) '            "perl" : "5.020"' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Module::Runtime" : "0",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Try::Tiny" : "0",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "perl" : "5.010"' >> META_new.json
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "1.03",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "1.06",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "x_serialization_backend" : "JSON::PP version 2.27400_02"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
@@ -859,11 +863,13 @@ testdb_static :: static pure_all
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="Data-Random-Flexible" VERSION="1.03">' > Data-Random-Flexible.ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="Data-Random-Flexible" VERSION="1.06">' > Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Flexible fast-to-write profilable randoms</ABSTRACT>' >> Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Paul G Webster &lt;daemon@cpan.org&gt;</AUTHOR>' >> Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> Data-Random-Flexible.ppd
-	$(NOECHO) $(ECHO) '        <PERLCORE VERSION="5,020,0,0" />' >> Data-Random-Flexible.ppd
+	$(NOECHO) $(ECHO) '        <PERLCORE VERSION="5,010,0,0" />' >> Data-Random-Flexible.ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Module::Runtime" />' >> Data-Random-Flexible.ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Try::Tiny" />' >> Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="amd64-freebsd-thread-multi-5.26" />' >> Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> Data-Random-Flexible.ppd
