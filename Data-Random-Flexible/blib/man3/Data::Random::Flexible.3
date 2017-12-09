@@ -73,7 +73,7 @@
 .if n .ad l
 .nh
 .SH "NAME"
-Data::Random::Flexible \- Fast flexible profilable randoms
+Data::Random::Flexible \- Flexible fast\-to\-write profilable randoms
 .SH "VERSION"
 .IX Header "VERSION"
 Version 1.03
@@ -98,6 +98,20 @@ A more flexible set of randoms for when you want to be random \s-1FAST\s0
 \&    
 \&    say "Random mixture of 16 your own characters from a saved profile?, sure: ".$random\->profile(\*(Aqirc\*(Aq,16);
 .Ve
+.PP
+The module can also use alternative provieders for \fIrand()\fR, for more detail look at the \fIengine()\fR function,
+the currently supported providers of random are:
+.PP
+.Vb 8
+\&        Math::Random::Secure
+\&        Math::Random::MTwist
+\&        Math::Random::Xorshift
+\&        Math::Random::MT
+\&        Math::Random::ISAAC
+\&        Math::Random::ISAAC::XS (Not selectable will be used AUTO if availible by Math::Random::ISAAC)
+\&        Crypt::PRNG
+\&        Your own code reference.
+.Ve
 .SH "\fInew()\fP"
 .IX Header "new()"
 Create a new Math::Random::Flexible object, accepts 1 optional argument, a hashref of profiles
@@ -109,6 +123,14 @@ your choice as the first argument.
 .PP
 If you pass in a reference to your own random function it will attempt a test against it
 if successful it will use that!
+.PP
+An example of passing your own:
+.PP
+.Vb 1
+\&    sub mycode { return int(rand(9)) }
+\&
+\&    $random\->engine(\e&mycode);
+.Ve
 .PP
 If you pass something weird that is not a known engine or a reference, it will not switch
 engines but will raise a warning.

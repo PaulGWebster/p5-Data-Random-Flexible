@@ -15,24 +15,23 @@ BEGIN {
         Math::Random::Xorshift
         Math::Random::MT
         Math::Random::ISAAC
-        Math::Random::ISAAC::XS
         Crypt::PRNG
     );
 
     foreach my $module (@optional) {
         try {
             require_module $module;
-            $engines->{$module} = $module;
+            $engines->{$module} = 1;
         };
     }
 
     # Add Core::rand back
-    $engines->{'CORE'} = { func=>\&{ CORE::rand }, seed=>0 };
+    $engines->{'CORE'} = 1;
 }
 
 =head1 NAME
 
-Data::Random::Flexible - Fast flexible profilable randoms
+Data::Random::Flexible - Flexible fast-to-write profilable randoms
 
 =head1 VERSION
 
@@ -63,6 +62,19 @@ A more flexible set of randoms for when you want to be random FAST
     
     say "Random mixture of 16 your own characters from a saved profile?, sure: ".$random->profile('irc',16);
 
+The module can also use alternative provieders for rand(), for more detail look at the engine() function,
+the currently supported providers of random are:
+
+        Math::Random::Secure
+        Math::Random::MTwist
+        Math::Random::Xorshift
+        Math::Random::MT
+        Math::Random::ISAAC
+        Math::Random::ISAAC::XS (Not selectable will be used AUTO if availible by Math::Random::ISAAC)
+        Crypt::PRNG
+        Your own code reference.
+
+
 =head1 new()
 
 Create a new Math::Random::Flexible object, accepts 1 optional argument, a hashref of profiles
@@ -72,8 +84,11 @@ Create a new Math::Random::Flexible object, accepts 1 optional argument, a hashr
 sub new {
     my ($class,$profiles) = @_;
     $profiles = {} if (!$profiles);
+   
+    my $return = bless { profiles=>$profiles }, $class;
+    $return->engine('CORE');
 
-    return bless { selected=>'CORE', profiles=>$profiles }, $class;
+    return $return;
 }
 
 =head1 engine()
@@ -84,6 +99,12 @@ your choice as the first argument.
 
 If you pass in a reference to your own random function it will attempt a test against it
 if successful it will use that!
+
+An example of passing your own: 
+
+    sub mycode { return int(rand(9)) }
+
+    $random->engine(\&mycode);
 
 If you pass something weird that is not a known engine or a reference, it will not switch
 engines but will raise a warning.
@@ -140,36 +161,32 @@ sub engine {
 
             if ( $engine eq 'Math::Random::Secure' ) {
                 # Do not really need to do anything for this one, does not even have an object method
-                $self->{engine}->{$engine} = sub { Math::Random::Secure::rand };
+                $self->{engine}->{$engine} = sub { Math::Random::Secure::rand(shift) };
             }
             elsif ( $engine eq 'Math::Random::MTwist' ) {
                 # Seeds from dev/random no need to
                 $self->{engine}->{obj}->{$engine} = Math::Random::MTwist->new();
-                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand };
+                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand(shift) };
             }
             elsif ( $engine eq 'Math::Random::Xorshift' ) {
                 $self->{engine}->{obj}->{$engine} = Math::Random::Xorshift->new( @seed ); 
-                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand };
+                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand(shift) };
             }
             elsif ( $engine eq 'Math::Random::MT' ) {
                 $self->{engine}->{obj}->{$engine} = Math::Random::MT->new( @seed );
-                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand };
+                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand(shift) };
             }
             elsif ( $engine eq 'Math::Random::ISAAC' ) {
                 $self->{engine}->{obj}->{$engine} = Math::Random::ISAAC->new( @seed );
-                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand };
-            }
-            elsif ( $engine eq 'Math::Random::ISAAC::XS' ) {
-                $self->{engine}->{obj}->{$engine} = Math::Random::ISAAC::XS->new( @seed );
-                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand };
+                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->rand(shift) };
             }
             elsif ( $engine eq 'Crypt::PRNG' ) {
                 # Seeds from dev/random no need to
                 $self->{engine}->{obj}->{$engine} = Crypt::PRNG->new( );
-                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->double };
+                $self->{engine}->{$engine} = sub { $self->{engine}->{obj}->{$engine}->double(shift) };
             }
             elsif ( $engine eq 'CORE' ) {
-                $self->{engine}->{$engine} = sub { CORE::rand };
+                $self->{engine}->{$engine} = sub { CORE::rand(shift) };
             }
         }
         return;
@@ -207,7 +224,6 @@ sub _rand {
     my ($self,$option) = @_;
     return $self->{engine}->{$self->{engine}->{selected}}->($option);
 }
-
 
 =head1 alpha()
 

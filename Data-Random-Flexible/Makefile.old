@@ -486,7 +486,7 @@ realclean purge :: realclean_subdirs
 metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
 	$(NOECHO) $(ECHO) '---' > META_new.yml
-	$(NOECHO) $(ECHO) 'abstract: '\''Fast flexible profilable randoms'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) 'abstract: '\''Flexible fast-to-write profilable randoms'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  - '\''Paul G Webster <daemon@cpan.org>'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
@@ -511,7 +511,7 @@ metafile : create_distdir
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
 	$(NOECHO) $(ECHO) '{' > META_new.json
-	$(NOECHO) $(ECHO) '   "abstract" : "Fast flexible profilable randoms",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "abstract" : "Flexible fast-to-write profilable randoms",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "author" : [' >> META_new.json
 	$(NOECHO) $(ECHO) '      "Paul G Webster <daemon@cpan.org>"' >> META_new.json
 	$(NOECHO) $(ECHO) '   ],' >> META_new.json
@@ -860,7 +860,7 @@ testdb_static :: static pure_all
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
 	$(NOECHO) $(ECHO) '<SOFTPKG NAME="Data-Random-Flexible" VERSION="1.03">' > Data-Random-Flexible.ppd
-	$(NOECHO) $(ECHO) '    <ABSTRACT>Fast flexible profilable randoms</ABSTRACT>' >> Data-Random-Flexible.ppd
+	$(NOECHO) $(ECHO) '    <ABSTRACT>Flexible fast-to-write profilable randoms</ABSTRACT>' >> Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Paul G Webster &lt;daemon@cpan.org&gt;</AUTHOR>' >> Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> Data-Random-Flexible.ppd
 	$(NOECHO) $(ECHO) '        <PERLCORE VERSION="5,020,0,0" />' >> Data-Random-Flexible.ppd

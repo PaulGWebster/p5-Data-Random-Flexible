@@ -20,7 +20,7 @@ Revision history for Data-Random-Flexible
         'Math::Random::Xorshift'
         'Math::Random::MT'     
         'Math::Random::ISAAC' 
-        'Math::Random::ISAAC::XS'
+        'Math::Random::ISAAC::XS' (Inferred autoloaded)
         'Crypt::PRNG' 
 
         You can select which to use via the ->engine() call
