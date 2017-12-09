@@ -8,3 +8,6 @@ Revision history for Data-Random-Flexible
 
 1.01    Second release
         Fixed a typo in the pod, updated some minor formatting
+
+1.02    Third release
+        Fixed the auto loading of Math::Random::Secure (hopefully)

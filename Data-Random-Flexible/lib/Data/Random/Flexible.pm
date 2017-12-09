@@ -1,8 +1,17 @@
 package Data::Random::Flexible;
 
-use 5.020;
+use 5.010;
 use strict;
 use warnings;
+
+BEGIN {
+    eval {
+        require Math::Random::Secure; 
+    };
+    if (!$@) {
+        Math::Random::Secure->import('rand'); 
+    }
+}
 
 =head1 NAME
 
@@ -10,11 +19,11 @@ Data::Random::Flexible - Fast flexible profilable randoms
 
 =head1 VERSION
 
-Version 1.01
+Version 1.02
 
 =cut
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 
 =head1 SYNOPSIS
@@ -44,12 +53,6 @@ Create a new Math::Random::Flexible object, accepts 1 optional argument, a hashr
 sub new {
     my ($class,$profiles) = @_;
     $profiles = {} if (!$profiles);
-
-    $@ = "";
-    eval("use Math::Random::Secure");
-    if (!$@) {
-        use Math::Random::Secure qw(rand); 
-    }
 
     return bless { profiles=>$profiles }, $class;
 }
