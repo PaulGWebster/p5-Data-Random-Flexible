@@ -11,3 +11,18 @@ Revision history for Data-Random-Flexible
 
 1.02    Third release
         Fixed the auto loading of Math::Random::Secure (hopefully)
+
+1.03    Four Release
+        Added detection for:
+
+        'Math::Random::Secure' 
+        'Math::Random::MTwist' 
+        'Math::Random::Xorshift'
+        'Math::Random::MT'     
+        'Math::Random::ISAAC' 
+        'Math::Random::ISAAC::XS'
+        'Crypt::PRNG' 
+
+        You can select which to use via the ->engine() call
+
+        

@@ -85,12 +85,6 @@ your choice as the first argument.
 If you pass in a reference to your own random function it will attempt a test against it
 if successful it will use that!
 
-An example of passing your own: 
-
-    sub mycode { return int(rand(9)) }
-
-    $random->engine(\&mycode);
-
 If you pass something weird that is not a known engine or a reference, it will not switch
 engines but will raise a warning.
 
